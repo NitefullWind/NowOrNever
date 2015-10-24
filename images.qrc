@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="find_pressed">images/find_blue.png</file>
+        <file alias="find">images/find_red.png</file>
+        <file alias="mine_pressed">images/mine_blue.png</file>
+        <file alias="mine">images/mine_red.png</file>
+        <file alias="study_pressed">images/study_blue.png</file>
+        <file alias="study">images/study_red.png</file>
+    </qresource>
+</RCC>
