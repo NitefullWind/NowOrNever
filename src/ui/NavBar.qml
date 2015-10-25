@@ -1,14 +1,21 @@
 import QtQuick 2.4
 
 NavBarForm {
+    property var unitHeight: FontUnit.pixelSize(60);
+    //自定义信号发射当前页面号
+    signal pageIndexChanged(var index);
+
     //导航按键点击相应事件
     mouseArea_study.onPressedChanged: {
+        pageIndexChanged(0);
         pressedThenChange(image_study, mouseArea_study);
     }
     mouseArea_find.onPressedChanged: {
+        pageIndexChanged(1);
         pressedThenChange(image_find, mouseArea_find);
     }
     mouseArea_mine.onPressedChanged: {
+        pageIndexChanged(2);
         pressedThenChange(image_mine, mouseArea_mine);
     }
 
@@ -31,8 +38,13 @@ NavBarForm {
 
     //初始化
     Component.onCompleted: {
+        height = unitHeight;
         initImgSource();
         image_study.source = "qrc:/study_pressed";
+    }
+
+    onWidthChanged: {
+        height = (width / 6 < unitHeight) ? width / 6 : unitHeight;
     }
 }
 

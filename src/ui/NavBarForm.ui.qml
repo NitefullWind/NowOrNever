@@ -3,7 +3,7 @@ import QtQuick 2.4
 Rectangle {
     id: root
     width: 360
-    height: width / 6 // width除以4，和图片的宽度相等
+    height: 60
 
     property alias rec_Nav: rec_Nav;
     property alias image_study: image_study;
@@ -24,9 +24,9 @@ Rectangle {
 
         Image {
             id: image_study
-            width: parent.height    // 即parent(root和屏幕)的宽度除以4
+            width: parent.height
             height: width
-            anchors.rightMargin: width       // root的高度(和图片的宽相等)
+            anchors.rightMargin: parent.width / 6;
             anchors.right: image_find.left
 
 
@@ -53,7 +53,7 @@ Rectangle {
             id: image_mine
             width: image_study.width
             height: width
-            anchors.leftMargin: width
+            anchors.leftMargin: parent.width / 6
             anchors.left: image_find.right
 
 

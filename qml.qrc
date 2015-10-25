@@ -5,5 +5,9 @@
         <file>src/ui/NavBarForm.ui.qml</file>
         <file>src/ui/StudyInfoFrame.qml</file>
         <file>src/ui/StudyInfoFrameForm.ui.qml</file>
+        <file>src/ui/FindPage.qml</file>
+        <file>src/ui/FindPageForm.ui.qml</file>
+        <file>src/ui/MinePage.qml</file>
+        <file>src/ui/MinePageForm.ui.qml</file>
     </qresource>
 </RCC>

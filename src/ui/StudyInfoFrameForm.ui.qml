@@ -3,15 +3,84 @@ import QtQuick 2.4
 Item {
     id: root
     width: 350
-    height: width - 100
+    height: 300
 
     property alias mouseArea_nowToLearn: mouseArea_nowToLearn;
     property alias rec_nowToLearn: rec_nowToLearn;
+    property alias text_nowToLearn: text_nowToLearn;
+    property alias rec_todayInfo: rec_todayInfo;
+
+    Rectangle {
+        id: rec_progress
+        width: parent.width
+        height: parent.height / 15
+        color: "#f8f810"
+        radius: 5
+        anchors.bottomMargin:  3 * height
+        anchors.bottom: text_today.top
+        border.width: 2
+        border.color: "#ffffff"
+
+        AnimatedImage {
+            id: borderImg_progress
+            width: 165
+            height: parent.height
+            anchors.left: parent.left
+            source: "qrc:/progressBar"
+
+            Text {
+                id: text_learned
+                text: qsTr("Learned:")
+                font.family: "Courier"
+                opacity: 0.5
+                anchors.left: parent.left
+                anchors.leftMargin: 5
+                anchors.verticalCenter: parent.verticalCenter
+                font.pointSize: 12
+            }
+
+            Text {
+                id: text_learnedNum
+                text: qsTr("99999")
+                font.family: "Courier"
+                opacity: 0.5
+                font.pointSize: 12
+                anchors.top: text_learned.top
+                anchors.topMargin: 0
+                anchors.left: text_learned.right
+                anchors.leftMargin: 10
+            }
+        }
+
+        Text {
+            id: text_total
+            text: qsTr("Total:")
+            font.family: "Courier"
+            opacity: 0.5
+            horizontalAlignment: Text.AlignRight
+            font.pointSize: 12
+            anchors.right: text_totalNum.left
+            anchors.rightMargin: 10
+            anchors.top: text_totalNum.top
+            anchors.topMargin: 0
+        }
+
+        Text {
+            id: text_totalNum
+            text: qsTr("99999")
+            font.family: "Courier"
+            opacity: 0.5
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            font.pointSize: 12
+        }
+    }
 
     Rectangle {
         id: rec_todayInfo
         width: parent.width
-        height: parent.height - 50
+        height: parent.height - 100
         color: "#f4ebeb"
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
@@ -136,5 +205,6 @@ Item {
         font.family: "Courier"
         font.bold: true
     }
+
 }
 
