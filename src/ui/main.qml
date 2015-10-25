@@ -6,56 +6,30 @@ Window {
     width: 480;
     height: 720;
 
-    Item {
-        id: pages;
-        width: parent.width;
-        height: parent.height - navBar.height;
-        anchors.top: parent.top;
+    MainForm {
+        anchors.fill: parent;
+        property var unitLeftMargin: FontUnit.pixelSize(30);
 
-        //首页学习信息展示框
-        StudyInfoFrame {
-            id: studyInfoFrame;
-            property var unitLeftMargin: FontUnit.pixelSize(30);
-
-            anchors.bottom: parent.bottom;
-            anchors.bottomMargin: parent.height / 6;
-            anchors.left: parent.left;
-            anchors.leftMargin: unitLeftMargin;
-            width: parent.width - 2 * unitLeftMargin;
-            height: parent.height >> 1;
-        }
-
-        FindPage {
-            id: findPage;
-            anchors.fill: parent;
-            visible: false;
-        }
-
-        MinePage {
-            id: minePage;
-            anchors.fill: parent;
-            visible: false;
-        }
-    }
-
-    //导航栏
-    NavBar {
-        id: navBar;
-        anchors.bottom: parent.bottom;
-        width: parent.width;
+        studyInfoFrame.anchors.leftMargin: unitLeftMargin;
+        studyInfoFrame.width: parent.width - 2 * unitLeftMargin;
 
         //导航页面索引改变时显示不同的页面
-        onPageIndexChanged: {
-            for(var i=0; i< 3; i++){
-                if(i != index){
-                    pages.children[i].visible = false;
-                }
-            }
-            pages.children[index].visible = true
+        navBar.onPageIndexChanged: {
+            setVisiblePage(pages.children[index]);
         }
-    }
+        //点击nowToLearn按钮时跳转到学习界面
+        studyInfoFrame.mouseArea_nowToLearn.onClicked: {
+            setVisiblePage(studyPage);
+        }
 
-    Component.onCompleted: {
-        console.log("=======================\n"+FontUnit.pixelSize(1000)+"\n====================");
+        //设置可见的页面，实现跳转
+        function setVisiblePage(page) {
+            //先将所有界面设置为不可见
+            for(var i=0; i<4; i++){
+                pages.children[i].visible = false;
+            }
+            //再将传来的界面设置为可见
+            page.visible = true;
+        }
     }
 }

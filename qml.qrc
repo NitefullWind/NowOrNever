@@ -9,5 +9,8 @@
         <file>src/ui/FindPageForm.ui.qml</file>
         <file>src/ui/MinePage.qml</file>
         <file>src/ui/MinePageForm.ui.qml</file>
+        <file>src/ui/MainForm.ui.qml</file>
+        <file>src/ui/StudyPage.qml</file>
+        <file>src/ui/StudyPageForm.ui.qml</file>
     </qresource>
 </RCC>
