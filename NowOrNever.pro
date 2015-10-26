@@ -2,8 +2,8 @@ TEMPLATE = app
 
 QT += qml quick
 
-SOURCES += main.cpp \
-    src/ui/fontUtil.cpp
+SOURCES += src/core/main.cpp \
+    src/ui/fontUtil.cpp \
 
 RESOURCES += qml.qrc \
     images.qrc

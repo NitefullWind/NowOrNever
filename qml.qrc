@@ -3,14 +3,15 @@
         <file>src/ui/main.qml</file>
         <file>src/ui/NavBar.qml</file>
         <file>src/ui/NavBarForm.ui.qml</file>
-        <file>src/ui/StudyInfoFrame.qml</file>
-        <file>src/ui/StudyInfoFrameForm.ui.qml</file>
+        <file>src/ui/StudyPage.qml</file>
+        <file>src/ui/StudyPageForm.ui.qml</file>
         <file>src/ui/FindPage.qml</file>
         <file>src/ui/FindPageForm.ui.qml</file>
         <file>src/ui/MinePage.qml</file>
         <file>src/ui/MinePageForm.ui.qml</file>
         <file>src/ui/MainForm.ui.qml</file>
-        <file>src/ui/StudyPage.qml</file>
-        <file>src/ui/StudyPageForm.ui.qml</file>
+        <file>src/ui/StudyWord.qml</file>
+        <file>src/ui/StudyWordForm.ui.qml</file>
+        <file>src/ui/MainPagesList.qml</file>
     </qresource>
 </RCC>
