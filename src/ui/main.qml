@@ -8,9 +8,19 @@ Window {
 
     MainForm {
         anchors.fill: parent;
-        //导航页面索引改变时显示不同的页面
-        navBar.onPageIndexChanged: {
-            pagesList.currentIndex = index;
+
+        //绑定页面和导航的索引值
+        pagesList.onCurrentIndexChanged: {
+            if(navBar.activePageIndex != pagesList.currentIndex){
+                navBar.activePageIndex = pagesList.currentIndex;
+            }
+            console.log("pageList")
+        }
+        navBar.onActivePageIndexChanged: {
+            if(navBar.activePageIndex != pagesList.currentIndex){
+                pagesList.currentIndex = navBar.activePageIndex;
+            }
+            console.log("navBar")
         }
     }
 }
