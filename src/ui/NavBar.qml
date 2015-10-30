@@ -9,7 +9,9 @@ Rectangle {
     property var iconNames: ["study", "find", "mine"];
     property var activePageIndex: 0;
 
+    //图标按钮
     Row {
+        id: iconRow;
         anchors.fill: parent;
 
         //重复创建三个图标
@@ -33,6 +35,16 @@ Rectangle {
                 }
             }
         }
+    }
+
+    //上方的分离线
+    Rectangle {
+        id: line;
+        width: parent.width;
+        height: 1;
+        color: "#000000";
+        opacity: 0.4;
+        anchors.bottom: iconRow.top;
     }
 }
 

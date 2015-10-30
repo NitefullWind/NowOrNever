@@ -1,16 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>src/ui/main.qml</file>
-        <file>src/ui/StudyPage.qml</file>
-        <file>src/ui/StudyPageForm.ui.qml</file>
-        <file>src/ui/FindPage.qml</file>
-        <file>src/ui/FindPageForm.ui.qml</file>
-        <file>src/ui/MinePage.qml</file>
-        <file>src/ui/MinePageForm.ui.qml</file>
-        <file>src/ui/MainForm.ui.qml</file>
-        <file>src/ui/StudyWord.qml</file>
-        <file>src/ui/StudyWordForm.ui.qml</file>
         <file>src/ui/MainPagesList.qml</file>
         <file>src/ui/NavBar.qml</file>
+        <file>src/ui/Component/StackPage.qml</file>
+        <file>src/ui/Find/FindPage.qml</file>
+        <file>src/ui/Find/FindPageForm.ui.qml</file>
+        <file>src/ui/Mine/MinePage.qml</file>
+        <file>src/ui/Mine/MinePageForm.ui.qml</file>
+        <file>src/ui/Study/StudyPage.qml</file>
+        <file>src/ui/Study/StudyPageForm.ui.qml</file>
+        <file>src/ui/Study/StudyWord.qml</file>
+        <file>src/ui/Study/StudyWordForm.ui.qml</file>
+        <file>src/ui/MainForm.ui.qml</file>
     </qresource>
 </RCC>

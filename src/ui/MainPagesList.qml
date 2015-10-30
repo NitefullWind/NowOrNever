@@ -1,4 +1,7 @@
 import QtQuick 2.4
+import "./Study"
+import "./Find"
+import "./Mine"
 
 ListView {
     id: listView;
@@ -12,6 +15,10 @@ ListView {
     orientation: ListView.Horizontal
     maximumFlickVelocity: 3000
     boundsBehavior: ListView.StopAtBounds
+
+    property alias studyPage: studyPage;
+    property alias findPage: findPage;
+    property alias minePage: minePage;
 
     model: VisualItemModel {
         id: itemModel;
