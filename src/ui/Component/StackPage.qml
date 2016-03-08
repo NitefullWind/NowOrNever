@@ -1,9 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
 
 StackView {
     id: stackView;
     anchors.fill: parent;
+
+    property Component loadPageComponent: null;
 
     focus: true;
     Keys.enabled: true;
@@ -16,7 +19,24 @@ StackView {
     }
 
     function _push(url) {
-        push({item:Qt.resolvedUrl(url), destroyOnPop:true})
+//        push({item:Qt.resolvedUrl(url), destroyOnPop:true})
+        loadPageComponent = Qt.createComponent(url);
+        var loadPage;
+        if(loadPageComponent.status == Component.Ready) {
+            loadPage = loadPageComponent.createObject(stackView, {
+                                                          "stackPage": stackView
+                                                          })
+        }
+
+        stackView.push({item: loadPage
+                           , destroyOnPop:true
+                           // 不能用。 界面会僵死
+                           // , replace: replace
+                       });
+    }
+    function _pop(i) {
+        console.log(i);
+        pop();
     }
 
 //    Loader {
