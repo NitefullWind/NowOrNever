@@ -7,5 +7,6 @@
         <file alias="study_pressed">images/study_blue.png</file>
         <file alias="study">images/study_red.png</file>
         <file alias="progressBar">images/progressBar.gif</file>
+        <file alias="back">images/ico_right.png</file>
     </qresource>
 </RCC>

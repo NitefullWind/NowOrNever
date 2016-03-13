@@ -1,4 +1,8 @@
 import QtQuick 2.4
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
+import Qt.labs.settings 1.0
+import hfut.non.Word 1.0
 import "../Component"
 
 Page {
@@ -6,10 +10,35 @@ Page {
     width: 400
     height: 400
 
+    property Word word;
+    property int wordIndex: settings.wordIndex;
+
+    topBar: Rectangle{
+        width: root.width;
+        height: 50;
+        color: "gray";
+//        opacity: 0.3
+        Image {
+            id: img_back
+            source: "qrc:/back";
+            height: parent.height;
+            width: height;
+
+            MouseArea {
+                id: btn_back;
+                anchors.fill: parent;
+                onClicked: {
+                    //点击时退出当前页
+                    root.popPage();
+                }
+            }
+        }
+    }
+
     Text {
         id: text_word
         color: "#0aafde"
-        text: qsTr("Word")
+        text: word.spell;
         anchors.topMargin: parent.height >> 2
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
@@ -18,6 +47,19 @@ Page {
         font.pointSize: 50
     }
 
+    Text {
+        id: text_word_mean;
+        text: word.mean;
+        anchors.top: text_word.bottom;
+        anchors.topMargin: 10;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        font.pointSize: 15;
+        width: parent.width >> 1;
+        wrapMode: Text.WordWrap;
+        visible: false;
+    }
+
+    //认识按钮
     Rectangle {
         id: rec_know
         width: parent.width / 1.5
@@ -43,9 +85,13 @@ Page {
         MouseArea {
             id: mouseArea_know
             anchors.fill: parent
+            onClicked: {
+                showNextWord();
+            }
         }
     }
 
+    //不认识按钮
     Rectangle {
         id: rec_notKnow
         width: rec_know.width
@@ -70,13 +116,33 @@ Page {
         MouseArea {
             id: mouseArea_notKnow
             anchors.fill: parent
+            onClicked: {
+                text_word_mean.visible = true;
+            }
         }
     }
 
+    function showNextWord () {
+        word = DicDB.getAWordByIndex(wordIndex);
+        wordChanged();  //发送word改变的信号，与word绑定处自动更新
+        wordIndex++;
+        text_word_mean.visible = false;
+    }
+
+    //设置
+    Settings {
+        id: settings;
+        property int wordIndex: 1;
+    }
+
     Component.onCompleted: {
+
+        DicDB.connect("dic.db");
+        showNextWord();
         console.log("创建");
     }
     Component.onDestruction: {
+        settings.wordIndex = root.wordIndex;
         console.log("销毁");
     }
 }
