@@ -139,10 +139,12 @@ Page {
 
         DicDB.connect("dic.db");
         showNextWord();
+        DicDB.setWordList("view_CET6",0,10);
         console.log("创建");
     }
     Component.onDestruction: {
         settings.wordIndex = root.wordIndex;
+        DicDB.clearMemory();
         console.log("销毁");
     }
 }
