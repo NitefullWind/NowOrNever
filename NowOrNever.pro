@@ -5,7 +5,9 @@ CONFIG += c++11
 SOURCES += src/core/main.cpp \
     src/ui/fontUtil.cpp \
     src/core/dicDB.cpp \
-    src/core/word.cpp
+    src/core/word.cpp \
+    src/core/dbOp.cpp \
+    src/core/userDB.cpp
 
 RESOURCES += qml.qrc \
     images.qrc
@@ -30,4 +32,6 @@ ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 HEADERS += \
     src/ui/fontUtil.h \
     src/core/dicDB.h \
-    src/core/word.h
+    src/core/word.h \
+    src/core/dbOp.h \
+    src/core/userDB.h

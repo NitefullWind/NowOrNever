@@ -1,23 +1,21 @@
 #ifndef DICDB_H
 #define DICDB_H
 
-#include <QObject>
+//#include <QObject>
 #include <QSqlDatabase>
 #include "word.h"
+#include "dbOp.h"
 
-class DicDB : public QObject
+class DicDB : public DBOp
 {
     Q_OBJECT
 public:
     explicit DicDB(QObject *parent = 0);
-    ~DicDB();
-    Q_INVOKABLE bool connect(QString name);
-    Q_INVOKABLE QList<QList<QString>> execSelect(QString sql);
+    ~DicDB();    
     Q_INVOKABLE Word* getAWord(QString sql);
     Q_INVOKABLE Word* getAWord(QList<QString> propertys);
     Q_INVOKABLE Word* getAWordByIndex(int index);
     Q_INVOKABLE void setWordList(QString tableName, int begin, int number);
-    Q_INVOKABLE QString getErrorText() {return errorText;}
 
     Q_INVOKABLE void clearMemory();
 
@@ -32,8 +30,6 @@ public:
     };
 
 private:
-    QSqlDatabase db;
-    QString errorText;
     Word *word;
     QList<Word*> wordList;
 };

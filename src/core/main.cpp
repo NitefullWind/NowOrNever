@@ -3,6 +3,7 @@
 #include <QtQml>
 #include "src/ui/fontUtil.h"
 #include "src/core/dicDB.h"
+#include "src/core/userDB.h"
 #include "src/core/word.h"
 #include <QDebug>
 
@@ -18,6 +19,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("FontUnit", new FontUtil);
     engine.rootContext()->setContextProperty("DicDB", new DicDB);
+    engine.rootContext()->setContextProperty("UserDB", new UserDB);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/ui/main.qml")));
 

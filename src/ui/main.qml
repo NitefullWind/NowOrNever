@@ -5,7 +5,18 @@ Window {
     visible: true
     width: 480;
     height: 720;
-    MainView {
+
+    Loader {
+        id: loader;
+        focus: true;    //loader的focus设置为true其中的item才能接受键盘事件
         anchors.fill: parent;
+        source: "qrc:/src/ui/LoginPage.qml"
+    }
+
+    Connections {
+        target: loader.item;
+        onLoginSuccess: {
+            loader.source = "qrc:/src/ui/MainView.qml";
+        }
     }
 }

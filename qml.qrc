@@ -10,5 +10,7 @@
         <file>src/ui/Study/StudyWord.qml</file>
         <file>src/ui/Component/TopBar.qml</file>
         <file>src/ui/Component/Page.qml</file>
+        <file>src/ui/LoginPage.qml</file>
+        <file>src/ui/Component/LineTextInput.qml</file>
     </qresource>
 </RCC>

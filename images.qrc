@@ -8,5 +8,8 @@
         <file alias="study">images/study_red.png</file>
         <file alias="progressBar">images/progressBar.gif</file>
         <file alias="back">images/ico_right.png</file>
+        <file alias="logo">images/logo.png</file>
+        <file alias="slogan">images/slogan.png</file>
+        <file alias="logoAndSlogan">images/logoAndSlogan.PNG</file>
     </qresource>
 </RCC>
