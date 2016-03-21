@@ -11,7 +11,7 @@ Item {
     StackView {
         id: stack;
         anchors.fill: parent;
-        initialItem: mainView ;
+//        initialItem: mainPage ;
 
         //接受键盘事件处理返回退出
         focus: true;
@@ -26,14 +26,14 @@ Item {
     }
 
     Page {
-        id: mainView;
+        id: mainPage;
 
         stackView: stack;
 
         ListView {
             id: listView;
             width: parent.width
-            anchors.top: mainView.top;
+            anchors.top: mainPage.top;
             anchors.bottom: navBar.top;
 
             clip: true
@@ -89,5 +89,19 @@ Item {
         }
     }
 
+    Component.onCompleted: {
+        if(1) {
+            var component = Qt.createComponent("qrc:/src/ui/LoginPage.qml");
+            if(component.status === Component.Ready) {
+                var loadPage = component.createObject(stack, {"stackView": stack})
+                stack.push({item: loadPage, destroyOnPop: true})
+            }else{
+                console.log("Not Ready", component.errorString())
+            }
+        }else{
+            stack.initialItem = mainPage;
+        }
+
+    }
 }
 

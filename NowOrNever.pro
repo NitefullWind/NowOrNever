@@ -1,13 +1,13 @@
 TEMPLATE = app
 
-QT += qml quick sql
+QT += qml quick sql network
 CONFIG += c++11
 SOURCES += src/core/main.cpp \
     src/ui/fontUtil.cpp \
     src/core/dicDB.cpp \
     src/core/word.cpp \
     src/core/dbOp.cpp \
-    src/core/userDB.cpp
+    src/core/network.cpp
 
 RESOURCES += qml.qrc \
     images.qrc
@@ -34,4 +34,4 @@ HEADERS += \
     src/core/dicDB.h \
     src/core/word.h \
     src/core/dbOp.h \
-    src/core/userDB.h
+    src/core/network.h

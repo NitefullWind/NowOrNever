@@ -3,7 +3,6 @@
         <file>src/ui/main.qml</file>
         <file>src/ui/MainView.qml</file>
         <file>src/ui/NavBar.qml</file>
-        <file>src/ui/Component/StackPage.qml</file>
         <file>src/ui/Find/FindPage.qml</file>
         <file>src/ui/Mine/MinePage.qml</file>
         <file>src/ui/Study/StudyPage.qml</file>
@@ -12,5 +11,6 @@
         <file>src/ui/Component/Page.qml</file>
         <file>src/ui/LoginPage.qml</file>
         <file>src/ui/Component/LineTextInput.qml</file>
+        <file>src/ui/SignupPage.qml</file>
     </qresource>
 </RCC>

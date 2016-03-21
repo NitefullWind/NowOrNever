@@ -12,6 +12,8 @@ Rectangle {
 
     property Component bottomBar: Rectangle {}
 
+    focus: true;
+
     //头部框
     Loader {
         id: topBarLoader;

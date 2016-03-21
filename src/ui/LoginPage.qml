@@ -2,6 +2,7 @@ import QtQuick 2.5
 import 'Component'
 
 Page {
+    id: root;
     signal loginSuccess();
     Rectangle {
         anchors.fill: parent;
@@ -23,7 +24,7 @@ Page {
                 id: input_email;
                 backgroundText: "Your Email";
                 width: logo.width-10;
-                height: 40;
+                height: 30+FontUnit.pixelSize(24);
                 KeyNavigation.tab: input_pwd;
             }
             LineTextInput {
@@ -31,7 +32,7 @@ Page {
                 backgroundText: "Your Password";
                 isPassword: true;
                 width: logo.width-10;
-                height: 40;
+                height: 30+FontUnit.pixelSize(24);
                 KeyNavigation.tab: input_email;
             }
             Item {
@@ -42,14 +43,14 @@ Page {
             Rectangle {
                 id: rec_login;
                 width: logo.width-10;
-                height: 40;
+                height: 30+FontUnit.pixelSize(24);
                 radius: 7;
                 color: mouArea_login.pressed ? "#11b2dd" : "#33ccf5";
                 MouseArea {
                     id: mouArea_login;
                     anchors.fill: parent;
                     onClicked: {
-                        openDb();
+                        login();
                         mouse.accepted = true;
                     }
                 }
@@ -60,20 +61,43 @@ Page {
                     text: qsTr("Log in")
                 }
                 Keys.onReturnPressed: {
-                    openDb();
+                    login();
                     event.accepted = true;
                 }
             }
 
         }
+        Text {
+            id: text_link_signup
+            anchors.bottom: parent.bottom;
+            anchors.bottomMargin: 20;
+            text: qsTr("No account? Sign Up!")
+            anchors.horizontalCenter: parent.horizontalCenter;
+            font.pointSize: 15;
+            MouseArea {
+                id: mouseArea_signup;
+                anchors.fill: parent;
+                onClicked: {
+                    pushPage("qrc:/src/ui/SignupPage.qml");
+                }
+            }
+        }
 
     }
 
-    function openDb() {
-        UserDB.open();
-        var isOk = UserDB.login(input_email.text, input_pwd.text);
-        if(isOk){
-            loginSuccess();
+    //登录函数
+    function login() {
+        Network.login(input_email.text, input_pwd.text);
+    }
+
+    //监听是否登录成功
+    Connections {
+        target: Network;
+        onFinished: {
+            if(isOk) {
+                console.log(info)
+                loginSuccess();
+            }
         }
     }
 
