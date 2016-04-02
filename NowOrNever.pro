@@ -7,7 +7,9 @@ SOURCES += src/core/main.cpp \
     src/core/dicDB.cpp \
     src/core/word.cpp \
     src/core/dbOp.cpp \
-    src/core/network.cpp
+    src/core/network.cpp \
+    src/core/userLogin.cpp \
+    src/core/userSignup.cpp
 
 RESOURCES += qml.qrc \
     images.qrc
@@ -34,4 +36,6 @@ HEADERS += \
     src/core/dicDB.h \
     src/core/word.h \
     src/core/dbOp.h \
-    src/core/network.h
+    src/core/network.h \
+    src/core/userLogin.h \
+    src/core/userSignup.h

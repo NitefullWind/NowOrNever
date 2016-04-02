@@ -1,0 +1,11 @@
+#ifndef LOGIN_H
+#define LOGIN_H
+#include "network.h"
+
+class Login : public Network
+{
+public:
+    Login();
+};
+
+#endif // LOGIN_H

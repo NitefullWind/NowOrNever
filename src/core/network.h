@@ -7,21 +7,16 @@
 
 class Network : public QObject
 {
-    Q_OBJECT
 public:
     explicit Network(QObject *parent = 0);
-    Q_INVOKABLE void login(QString email, QString pwd);
+    Q_INVOKABLE void signup(QString name, QString email, QString pwd);
 
-signals:
-    void finished(bool isOk, QString info);
-
-public slots:
-    void onReplyFinished(QNetworkReply *reply);
-
-private:
+protected:
+    QString getReplyData(QNetworkReply *reply);
     QNetworkAccessManager m_nam;
     QString m_meptyString;
     QString hostUrl;
+    bool hasError;
 };
 
 #endif // NETWORK_H

@@ -1,10 +1,11 @@
 import QtQuick 2.5
 import 'Component'
+import './js/InputCheck.js' as InputCheck;
 
 Page {
     id: root;
-    signal loginSuccess();
     Rectangle {
+        id: mainRec;
         anchors.fill: parent;
         Image {
             id: logo
@@ -20,49 +21,43 @@ Page {
             anchors.horizontalCenter: parent.horizontalCenter;
             anchors.top: logo.bottom;
             anchors.topMargin: 80;
+
             LineTextInput {
                 id: input_email;
                 backgroundText: "Your Email";
                 width: logo.width-10;
-                height: 30+FontUnit.pixelSize(24);
+                height: FontUnit.height(25)*1.5;
                 KeyNavigation.tab: input_pwd;
             }
+
             LineTextInput {
                 id: input_pwd;
                 backgroundText: "Your Password";
                 isPassword: true;
-                width: logo.width-10;
-                height: 30+FontUnit.pixelSize(24);
+                width: input_email.width;
+                height: input_email.height;
                 KeyNavigation.tab: input_email;
             }
-            Item {
-                //占位元素
-                height: 20;
-                width: 10;
+//            Item {
+//                //占位元素
+//                height: 20;
+//                width: 10;
+//            }
+            Text {
+                id: text_info;
+                color: "red";
+//                height: input_email.height>>1
+                width: input_email.width;
+                text: " ";
             }
-            Rectangle {
-                id: rec_login;
-                width: logo.width-10;
-                height: 30+FontUnit.pixelSize(24);
-                radius: 7;
-                color: mouArea_login.pressed ? "#11b2dd" : "#33ccf5";
-                MouseArea {
-                    id: mouArea_login;
-                    anchors.fill: parent;
-                    onClicked: {
-                        login();
-                        mouse.accepted = true;
-                    }
-                }
-                Text {
-                    id: text_login;
-                    anchors.centerIn: parent;
-                    font.pointSize: 20;
-                    text: qsTr("Log in")
-                }
-                Keys.onReturnPressed: {
+            MyButton {
+                id: button_login;
+                width: input_email.width - 10;
+                text: "Log in";
+                onClicked: {
                     login();
-                    event.accepted = true;
+//                    toast.show("请输入");
+
                 }
             }
 
@@ -83,20 +78,42 @@ Page {
             }
         }
 
+        Toast {
+            id: toast;
+//            anchors.verticalCenter: parent.verticalCenter;
+            anchors.centerIn: parent;
+        }
     }
 
     //登录函数
     function login() {
-        Network.login(input_email.text, input_pwd.text);
+        if(allCheck()) {
+            UserLogin.login(input_email.text, input_pwd.text);
+        }
     }
 
-    //监听是否登录成功
+    //使用JS验证输入是否合法
+    function allCheck() {
+        if( InputCheck.checkEmail(input_email.text) === false ||
+            InputCheck.checkPassword(input_pwd.text) === false ) {
+            toast.show(InputCheck.errorMessage);
+            return false;
+        }
+
+        return true;
+    }
+
+    //监听信息
     Connections {
-        target: Network;
-        onFinished: {
-            if(isOk) {
-                console.log(info)
-                loginSuccess();
+        target: UserLogin;
+        onLoginFinished: {
+            //解析传来的JSON参数
+            var jo = JSON.parse(info);
+            if(jo.isOk === "true") {
+                console.log("登陆成功")
+            }else{
+                //登录失败时显示错误信息
+                toast.show(jo.info);
             }
         }
     }

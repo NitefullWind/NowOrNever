@@ -12,5 +12,8 @@
         <file>src/ui/LoginPage.qml</file>
         <file>src/ui/Component/LineTextInput.qml</file>
         <file>src/ui/SignupPage.qml</file>
+        <file>src/ui/Component/MyButton.qml</file>
+        <file>src/ui/Component/Toast.qml</file>
+        <file>src/ui/js/InputCheck.js</file>
     </qresource>
 </RCC>

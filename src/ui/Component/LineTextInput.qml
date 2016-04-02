@@ -25,6 +25,11 @@ Rectangle {
         anchors.leftMargin: 5;
         verticalAlignment: TextInput.AlignVCenter
         echoMode: isPassword==true ? TextInput.Password : TextInput.Normal;
+        activeFocusOnPress: true;
+        activeFocusOnTab: true;
+        validator: RegExpValidator {
+            regExp: /[\d\u-\u4e00\u9fa5-\uffff!@#$%^&*()_+-=,.<>?/:;"'{}\[\]`~'"]+/
+        }
 
         Text {
 //            anchors.verticalCenter: parent.verticalCenter;
@@ -34,6 +39,7 @@ Rectangle {
             font.pointSize: parent.font.pointSize;
             opacity: 0.3;
         }
+
     }
 }
 

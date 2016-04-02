@@ -3,7 +3,8 @@
 #include <QtQml>
 #include "src/ui/fontUtil.h"
 #include "src/core/dicDB.h"
-#include "src/core/network.h"
+#include "src/core/userLogin.h"
+#include "src/core/userSignup.h"
 #include "src/core/word.h"
 #include <QDebug>
 
@@ -19,7 +20,8 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("FontUnit", new FontUtil);
     engine.rootContext()->setContextProperty("DicDB", new DicDB);
-    engine.rootContext()->setContextProperty("Network", new Network);
+    engine.rootContext()->setContextProperty("UserLogin", new UserLogin);
+    engine.rootContext()->setContextProperty("UserSignup", new UserSignup);
 
     engine.load(QUrl(QStringLiteral("qrc:/src/ui/main.qml")));
 

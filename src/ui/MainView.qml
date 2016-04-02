@@ -101,7 +101,17 @@ Item {
         }else{
             stack.initialItem = mainPage;
         }
-
     }
+
+//    Connections {
+//        target: UserLogin;
+//        onLoginFinished: {
+//            var jo = JSON.parse(info);
+//            if(Boolean.valueOf(jo.isOk)) {
+//                stack.pop();
+//                stack.push(mainPage)
+//            }
+//        }
+//    }
 }
 
