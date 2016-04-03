@@ -4,6 +4,7 @@ import './js/InputCheck.js' as InputCheck;
 
 Page {
     id: root;
+    signal loginSuccess(bool isOk);
     Rectangle {
         id: mainRec;
         anchors.fill: parent;
@@ -110,7 +111,11 @@ Page {
             //解析传来的JSON参数
             var jo = JSON.parse(info);
             if(jo.isOk === "true") {
-                console.log("登陆成功")
+                User.name = jo.name;
+                User.newNum = jo.new;
+                User.planNum = jo.plan;
+                User.finishedNum = jo.finished;
+                loginSuccess(true)
             }else{
                 //登录失败时显示错误信息
                 toast.show(jo.info);

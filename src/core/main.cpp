@@ -6,6 +6,7 @@
 #include "src/core/userLogin.h"
 #include "src/core/userSignup.h"
 #include "src/core/word.h"
+#include "src/core/user.h"
 #include <QDebug>
 
 int main(int argc, char *argv[])
@@ -22,6 +23,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("DicDB", new DicDB);
     engine.rootContext()->setContextProperty("UserLogin", new UserLogin);
     engine.rootContext()->setContextProperty("UserSignup", new UserSignup);
+    engine.rootContext()->setContextProperty("User", new User(0, "0","0","0"));
 
     engine.load(QUrl(QStringLiteral("qrc:/src/ui/main.qml")));
 

@@ -9,7 +9,8 @@ SOURCES += src/core/main.cpp \
     src/core/dbOp.cpp \
     src/core/network.cpp \
     src/core/userLogin.cpp \
-    src/core/userSignup.cpp
+    src/core/userSignup.cpp \
+    src/core/user.cpp
 
 RESOURCES += qml.qrc \
     images.qrc
@@ -38,4 +39,5 @@ HEADERS += \
     src/core/dbOp.h \
     src/core/network.h \
     src/core/userLogin.h \
-    src/core/userSignup.h
+    src/core/userSignup.h \
+    src/core/user.h

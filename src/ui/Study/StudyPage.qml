@@ -122,7 +122,7 @@ Page {
         Text {
             id: text_planNum
             color: "#ed0404"
-            text: qsTr("9999")
+            text: User.planNum
             anchors.topMargin: 0
             font.pointSize: 18
             anchors.horizontalCenter: text_plan.horizontalCenter
@@ -146,7 +146,7 @@ Page {
         Text {
             id: text_newNum
             color: "#6b2be6"
-            text: qsTr("9999")
+            text: User.newNum
             anchors.topMargin: parent.height >> 3
             font.pointSize: 18
             anchors.horizontalCenter: text_new.horizontalCenter
@@ -170,7 +170,7 @@ Page {
         //完成数
         Text {
             id: text_finishedNum
-            text: qsTr("9999")
+            text: User.finishedNum
             font.pointSize: 18
             anchors.horizontalCenter: text_finished.horizontalCenter
             anchors.top: text_newNum.top

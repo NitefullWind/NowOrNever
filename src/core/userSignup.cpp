@@ -8,7 +8,7 @@ UserSignup::UserSignup(QObject *parent)
 
 void UserSignup::signup(QString name, QString email, QString pwd)
 {
-    QUrl url(hostUrl.arg("Signup?userName=%1&userEmail=%2&userPwd=%2").arg(name).arg(email).arg(pwd));
+    QUrl url(hostUrl.arg("Signup?userName=%1&userEmail=%2&userPwd=%3").arg(name).arg(email).arg(pwd));
     m_nam.get(QNetworkRequest(url));
 }
 

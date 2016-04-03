@@ -11,7 +11,18 @@ Item {
     StackView {
         id: stack;
         anchors.fill: parent;
-//        initialItem: mainPage ;
+        initialItem: LoginPage {
+                id: loginPage;
+                stackView: stack;
+                onLoginSuccess: {
+                    if(isOk===true) {
+                        stack.pop();
+                        stack.push(mainPage);
+                        stack.initialItem = mainPage;
+                        console.log(stack.depth);
+                    }
+                }
+        }
 
         //接受键盘事件处理返回退出
         focus: true;
@@ -88,30 +99,5 @@ Item {
             }
         }
     }
-
-    Component.onCompleted: {
-        if(1) {
-            var component = Qt.createComponent("qrc:/src/ui/LoginPage.qml");
-            if(component.status === Component.Ready) {
-                var loadPage = component.createObject(stack, {"stackView": stack})
-                stack.push({item: loadPage, destroyOnPop: true})
-            }else{
-                console.log("Not Ready", component.errorString())
-            }
-        }else{
-            stack.initialItem = mainPage;
-        }
-    }
-
-//    Connections {
-//        target: UserLogin;
-//        onLoginFinished: {
-//            var jo = JSON.parse(info);
-//            if(Boolean.valueOf(jo.isOk)) {
-//                stack.pop();
-//                stack.push(mainPage)
-//            }
-//        }
-//    }
 }
 

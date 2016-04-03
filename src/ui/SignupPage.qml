@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.1
 import "Component"
+import "./js/InputCheck.js" as InputCheck
 
 Page {
     id: root;
@@ -50,6 +51,13 @@ Page {
                 signup();
             }
         }
+
+    }
+
+    Toast {
+        id: toast;
+//            anchors.verticalCenter: parent.verticalCenter;
+        anchors.centerIn: parent;
     }
     Text {
         id: text_link_login
@@ -67,24 +75,48 @@ Page {
         }
     }
 
+    //注册函数
     function signup() {
-        if(textInput_password.text != textInput_r_password.text){
-            text_info.text = "Two passwords is different";
-            return;
+        if(allCheck()){
+            UserSignup.signup(textInput_name.text, textInput_email.text, textInput_password.text);
         }
-        UserSignup.signup(textInput_name.text, textInput_email.text, textInput_password.text);
     }
+
+    function allCheck() {
+        if(     InputCheck.checkName(textInput_name.text) === false ||
+                InputCheck.checkEmail(textInput_email.text) === false ||
+                InputCheck.checkPassword(textInput_password.text) === false) {
+            toast.show(InputCheck.errorMessage)
+            return false;
+        }
+        if(textInput_password.text !== textInput_r_password.text) {
+            toast.show("两次密码不同，请重新输入");
+            return false;
+        }
+
+        return true;
+    }
+
     Connections {
         target: UserSignup;
         onSignupFinished: {
-            if(error) {
-                text_info.text = "Host has an error.Please wait..";
-            }else if(info=="false"){
-                text_info.text = "Change an email adress and try again."
+            var jo = JSON.parse(info);
+            if(jo.isOk === "true") {
+                toast.show("注册成功，两秒后返回登录界面");
+                timer.start();
+                button_signup.enabled = false;
             }else {
-                text_info.text = " ";
-                popPage();
+                toast.show("Change an email adress and try again.")
             }
+        }
+    }
+
+    //计时器，两秒后返回登录界面
+    Timer {
+        id: timer;
+        interval: 2000;
+        onTriggered: {
+            popPage();
         }
     }
 }

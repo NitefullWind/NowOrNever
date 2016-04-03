@@ -24,7 +24,7 @@ function isNull(input)
 //检查是否是合法的邮箱地址
 function isEmailAddress(input)
 {
-     var pattern =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/gi;
+     var pattern =/^([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
      var isOk = pattern.test(input);
      if(isOk)
      {
@@ -63,3 +63,15 @@ function checkPassword(input)
 }
 //alert(checkPassword(""));
 //alert(errorMessage);
+function checkName(input)
+{
+    if(isNull(input)) {
+        errorMessage = "请输入用户名";
+        return false;
+    }
+    if(!isLengthThanSix(input)) {
+        errorMessage = "用户名必须大于6位"
+        return false;
+    }
+    return true;
+}

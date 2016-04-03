@@ -29,7 +29,7 @@ Rectangle {
     //消失动画
     Timer {
         id: timer;
-        interval: 3000;
+        interval: 2000;
         onTriggered: {
             rec_toast.opacity = 0;
             text_message.text = "";
@@ -37,9 +37,11 @@ Rectangle {
     }
 
     function show(message) {
-        text_message.text = message;
-        showAnimation.start();
-        timer.start();
+        if(!timer.running) {
+            text_message.text = message;
+            showAnimation.start();
+            timer.start();
+        }
     }
 }
 
