@@ -4,7 +4,6 @@
 #include <QSqlRecord>
 #include <QFile>
 #include <QDebug>
-#include "downloadDicDB.h"
 DicDB::DicDB(QObject *parent) : DBOp(parent)
 {
     word = new Word();
@@ -18,8 +17,6 @@ bool DicDB::isDbExists() const
     bool isOk = QFile::exists("dic.db");
     if(!isOk) {
         qDebug() << "NO dic db";
-        DownloadDicDB d;
-        d.download();
     }
     return isOk;
 }

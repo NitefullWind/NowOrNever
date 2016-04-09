@@ -3,6 +3,8 @@ import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
 import Qt.labs.settings 1.0
 import hfut.non.Word 1.0
+import hfut.non.DicDB 1.0
+import hfut.non.FtpOp 1.0
 import "../Component"
 
 Page {
@@ -123,7 +125,7 @@ Page {
     }
 
     function showNextWord () {
-        word = DicDB.getAWordByIndex(wordIndex);
+        word = dicDB.getAWordByIndex(wordIndex);
         wordChanged();  //发送word改变的信号，与word绑定处自动更新
         wordIndex++;
         text_word_mean.visible = false;
@@ -136,16 +138,20 @@ Page {
     }
 
     Component.onCompleted: {
-
-        DicDB.connect("dic.db");
+//        DicDB.connect("dic.db");
+        dicDB.open();
         showNextWord();
-        DicDB.setWordList("view_CET6",0,10);
+        dicDB.setWordList("view_CET6",0,10);
         console.log("创建");
     }
     Component.onDestruction: {
         settings.wordIndex = root.wordIndex;
-        DicDB.clearMemory();
+        dicDB.clearMemory();
         console.log("销毁");
+    }
+
+    DicDB {
+        id: dicDB;
     }
 }
 

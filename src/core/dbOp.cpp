@@ -26,6 +26,7 @@ bool DBOp::open()
         qDebug() << "数据库没打开"<<db.lastError();
         return false;
     }
+    qDebug() << "数据库:" << db.databaseName() << "打开" << db.tables();
     return true;
 }
 bool DBOp::close()
@@ -39,6 +40,7 @@ bool DBOp::close()
 
 QList<QList<QString>> DBOp::execSelect(QString sql)
 {
+    qDebug() << "execSelect Sql : "  << db.tables();
     if(!db.isOpen()){
         return QList<QList<QString>>();
     }
@@ -46,6 +48,7 @@ QList<QList<QString>> DBOp::execSelect(QString sql)
     QSqlRecord record;
     QList<QList<QString>> records;
     query.exec(sql);
+    qDebug() <<"query exec error: " << query.lastError();
     while(query.next()) {
         //获取查询到的记录
         record = query.record();
