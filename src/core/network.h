@@ -9,7 +9,6 @@ class Network : public QObject
 {
 public:
     explicit Network(QObject *parent = 0);
-    Q_INVOKABLE void signup(QString name, QString email, QString pwd);
 
 protected:
     QString getReplyData(QNetworkReply *reply);

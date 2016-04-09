@@ -19,6 +19,8 @@ public:
 
     Q_INVOKABLE void clearMemory();
 
+    bool isDbExists() const;
+
     //单词的各个属性在记录链表中的位置
     enum WordProperty {
         Index = 0,

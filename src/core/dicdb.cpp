@@ -2,13 +2,26 @@
 #include <QtSql/QSqlError>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QFile>
 #include <QDebug>
-
+#include "downloadDicDB.h"
 DicDB::DicDB(QObject *parent) : DBOp(parent)
 {
     word = new Word();
     DBOp::setDBInfo("QSQLITE","localhost",0, "dic","adminzzf", "admin123");
     qDebug() << "类DicDB创建";
+    isDbExists();
+}
+
+bool DicDB::isDbExists() const
+{
+    bool isOk = QFile::exists("dic.db");
+    if(!isOk) {
+        qDebug() << "NO dic db";
+        DownloadDicDB d;
+        d.download();
+    }
+    return isOk;
 }
 
 //使用SQL语句查询一个单词

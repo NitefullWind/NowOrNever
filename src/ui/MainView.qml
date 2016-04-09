@@ -16,10 +16,8 @@ Item {
                 stackView: stack;
                 onLoginSuccess: {
                     if(isOk===true) {
-                        stack.pop();
-                        stack.push(mainPage);
-                        stack.initialItem = mainPage;
-                        console.log(stack.depth);
+                        //将登录页替换为主页
+                        stack.push({item:mainPage, replace:true});
                     }
                 }
         }

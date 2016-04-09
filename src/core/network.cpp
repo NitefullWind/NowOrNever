@@ -8,12 +8,6 @@ Network::Network(QObject *parent)
 {
 }
 
-void Network::signup(QString name, QString email, QString pwd)
-{
-    QUrl url(hostUrl.arg("Signup?userName=%1&userEmail=%2&userPwd=%3").arg(name).arg(email).arg(pwd));
-    m_nam.get(QNetworkRequest(url));
-}
-
 QString Network::getReplyData(QNetworkReply *reply)
 {
     reply->deleteLater();
