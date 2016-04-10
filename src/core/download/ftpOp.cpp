@@ -22,7 +22,7 @@ void FtpOp::downloadDicDb(QString dir)
     ftp = new QFtp(this);
 
 
-    connect(ftp, SIGNAL(done(bool)), this, SLOT(ftpFinished(bool)));
+//    connect(ftp, SIGNAL(done(bool)), this, SLOT(ftpFinished(bool)));
     connect(ftp, SIGNAL(dataTransferProgress(qint64,qint64)), this, SLOT(updateProgress(qint64,qint64)));
     connect(ftp, SIGNAL(commandFinished(int,bool)), this, SLOT(commandFinished(int,bool)));
 
@@ -31,7 +31,7 @@ void FtpOp::downloadDicDb(QString dir)
     ftp->login();
 
     file = new QFile();
-    file->setFileName("dic.cb");
+    file->setFileName("dic.db");
     if(!file->open(QIODevice::WriteOnly)) {
         qDebug() << "open file error" << file->errorString();
     }
@@ -40,19 +40,21 @@ void FtpOp::downloadDicDb(QString dir)
     ftp->close();
 }
 
-void FtpOp::ftpFinished(bool error)
-{
-    if(error) {
-        file->remove();
-        qDebug() << "download failed: " << ftp->errorString();
-    }else{
-        qDebug() << "download file as: " << file->fileName();
-    }
-}
+//void FtpOp::ftpFinished(bool error)
+//{
+//    if(error) {
+//        file->remove();
+//        qDebug() << "download failed: " << ftp->errorString();
+//    }else{
+//        file->close();
+//        qDebug() << "download file as: " << file->fileName();
+//    }
+//    emit ftpDone(error);
+//}
 
 void FtpOp::updateProgress(qint64 readBytes, qint64 totalBytes)
 {
-    qDebug() << "downloading..." << readBytes << totalBytes;
+    emit progressChanged(readBytes, totalBytes);
 }
 
 void FtpOp::commandFinished(int, bool error)
@@ -76,5 +78,6 @@ void FtpOp::commandFinished(int, bool error)
             qDebug() << "download file ... " << file->fileName();
             delete file;
         }
+        emit ftpDone(error);
     }
 }

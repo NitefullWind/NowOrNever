@@ -4,21 +4,52 @@
 #include <QSqlRecord>
 #include <QFile>
 #include <QDebug>
-DicDB::DicDB(QObject *parent) : DBOp(parent)
+
+DicDB::DicDB(QObject *parent) : QObject(parent),
+    dbFileName("dic.db")
 {
     word = new Word();
-    DBOp::setDBInfo("QSQLITE","localhost",0, "dic","adminzzf", "admin123");
     qDebug() << "类DicDB创建";
-    isDbExists();
 }
 
-bool DicDB::isDbExists() const
+bool DicDB::connect()
 {
-    bool isOk = QFile::exists("dic.db");
-    if(!isOk) {
-        qDebug() << "NO dic db";
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(dbFileName);
+    if(!db.open()) {
+        errorText = db.lastError().text();
+        return false;
     }
+    return true;
+}
+
+bool DicDB::isDbExist()
+{
+    bool isOk = QFile::exists(dbFileName);
     return isOk;
+}
+
+QList<QList<QString>> DicDB::execSelect(QString sql)
+{
+    if(!db.isOpen()){
+        return QList<QList<QString>>();
+    }
+    QSqlQuery query;
+    QSqlRecord record;
+    QList<QList<QString>> records;
+    query.exec(sql);
+    while(query.next()) {
+        //获取查询到的记录
+        record = query.record();
+        int fieldCount = record.count();
+        //将值存入链表
+        QList<QString> recordList;
+        for(int i=0; i<fieldCount; i++) {
+            recordList.append(record.value(i).toString());
+        }
+        records.append(recordList);
+    }
+    return records;
 }
 
 //使用SQL语句查询一个单词
@@ -51,10 +82,10 @@ Word* DicDB::getAWord(QList<QString> propertys)
 Word* DicDB::getAWordByIndex(int index)
 {
     if(index<0) {
-        setErrorText("索引值小于0");
+        errorText = "索引值小于0";
         index = 0;
     }
-    word = getAWord(QString("select * from table_words where id='%1'").arg(index));
+    word = getAWord(QString("select * from table_words where rowid='%1'").arg(index));
     return word;
 }
 
@@ -62,7 +93,7 @@ void DicDB::setWordList(QString tableName, int begin, int number)
 {
     QString sql = QString("select * from '%1' limit %2, %3;").arg(tableName).arg(begin).arg(number);
     QList<QList<QString>> records = execSelect(sql);
-    
+
     for(int i=0; i<records.length(); i++)
     {
         Word* aAword = getAWord(records.at(i));
@@ -72,6 +103,9 @@ void DicDB::setWordList(QString tableName, int begin, int number)
 
 void DicDB::clearMemory()
 {
+    if(db.open()) {
+        db.close();
+    }
     qDeleteAll(wordList.begin(), wordList.end());
     wordList.clear();
 

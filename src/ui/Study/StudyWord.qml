@@ -138,10 +138,14 @@ Page {
     }
 
     Component.onCompleted: {
-//        DicDB.connect("dic.db");
-        dicDB.open();
-        showNextWord();
-        dicDB.setWordList("view_CET6",0,10);
+        if(!dicDB.isDbExist()) {
+            popup.show();
+        }else{
+            dicDB.connect();
+            showNextWord();
+//            dicDB.setWordList("view_CET6",0,10);
+        }
+        settings.wordIndex = 1;
         console.log("创建");
     }
     Component.onDestruction: {
@@ -152,6 +156,77 @@ Page {
 
     DicDB {
         id: dicDB;
+    }
+    FtpOp {
+        id: ftpOp;
+        onFtpDone: {
+            if(!error) {
+                text_popup.text = "下载成功";
+                text_hasDownload.text = "";
+
+                //连接单词数据库，显示单词
+                dicDB.connect();
+                showNextWord();
+//                dicDB.setWordList("view_CET6",0,10);
+            }else{
+                text_popup.text = "下载失败,请重试";
+                text_hasDownload.text = "";
+            }
+            btn_popup.text = "关闭";
+        }
+        onProgressChanged: {
+            text_hasDownload.text = done + "/" + total;
+        }
+    }
+    Rectangle {
+        id: popup;
+        width: root.width>>1;
+        height: width;
+        anchors.centerIn: parent;
+        radius: 5;
+        visible: false;
+        color: "lightblue"
+
+        Text {
+            id: text_popup;
+            width: parent.width-10;
+            text: "需要从服务器下载单词，是否继续?";
+            wrapMode: Text.WordWrap
+            font.pointSize: 23;
+            anchors.centerIn: parent;
+        }
+
+        Text {
+            id: text_hasDownload;
+            anchors.top: text_popup.bottom;
+            anchors.topMargin: 10;
+        }
+
+        MyButton {
+            id: btn_popup;
+            width: 100;
+            height: 50;
+            anchors.bottom: parent.bottom;
+            anchors.horizontalCenter: parent.horizontalCenter;
+            text: "继续";
+            onClicked: {
+                if(text == "继续") {
+                    text_popup.text = "正在下载单词..."
+                    ftpOp.downloadDicDb();
+                }else{
+                    popup.hide();
+                }
+            }
+        }
+
+        function show() {
+            popup.visible = true;
+            btn_popup.text = "继续";
+        }
+
+        function hide() {
+            popup.visible = false;
+        }
     }
 }
 
