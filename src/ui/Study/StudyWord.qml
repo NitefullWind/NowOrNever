@@ -13,7 +13,6 @@ Page {
     height: 400
 
     property Word word;
-    property int wordIndex: settings.wordIndex;
 
     topBar: Rectangle{
         width: root.width;
@@ -125,17 +124,11 @@ Page {
     }
 
     function showNextWord () {
-        word = dicDB.getAWordByIndex(wordIndex);
+        word = dicDB.getAWord();
         wordChanged();  //发送word改变的信号，与word绑定处自动更新
-        wordIndex++;
         text_word_mean.visible = false;
     }
 
-    //设置
-    Settings {
-        id: settings;
-        property int wordIndex: 1;
-    }
 
     Component.onCompleted: {
         if(!dicDB.isDbExist()) {
@@ -145,11 +138,9 @@ Page {
             showNextWord();
 //            dicDB.setWordList("view_CET6",0,10);
         }
-        settings.wordIndex = 1;
         console.log("创建");
     }
     Component.onDestruction: {
-        settings.wordIndex = root.wordIndex;
         dicDB.clearMemory();
         console.log("销毁");
     }

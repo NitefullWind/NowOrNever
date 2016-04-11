@@ -79,13 +79,9 @@ Word* DicDB::getAWord(QList<QString> propertys)
 }
 
 //根据索引值查询一个单词
-Word* DicDB::getAWordByIndex(int index)
+Word* DicDB::getAWord()
 {
-    if(index<0) {
-        errorText = "索引值小于0";
-        index = 0;
-    }
-    word = getAWord(QString("select * from table_words where rowid='%1'").arg(index));
+    Word* word = getAWord(QString("select * from view_strange limit 1, 1"));
     return word;
 }
 

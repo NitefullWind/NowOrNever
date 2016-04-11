@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE QList<QList<QString>> execSelect(QString sql);
     Q_INVOKABLE Word* getAWord(QString sql);
     Q_INVOKABLE Word* getAWord(QList<QString> propertys);
-    Q_INVOKABLE Word* getAWordByIndex(int index);
+    Q_INVOKABLE Word* getAWord();
     Q_INVOKABLE void setWordList(QString tableName, int begin, int number);
     Q_INVOKABLE QString getErrorText() {return errorText;}
 
