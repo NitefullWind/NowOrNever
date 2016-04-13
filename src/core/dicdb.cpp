@@ -20,6 +20,7 @@ bool DicDB::connect()
         errorText = db.lastError().text();
         return false;
     }
+    getQuantity();
     return true;
 }
 
@@ -79,33 +80,45 @@ Word* DicDB::getAWord(QList<QString> propertys)
 }
 
 //根据索引值查询一个单词
-Word* DicDB::getAWord()
+Word* DicDB::getAWord(int index)
 {
-    Word* word = getAWord(QString("select * from view_strange limit 1, 1"));
+    Word* word = getAWord(QString("select * from view_CET4 limit %1, 1").arg(index));
     return word;
 }
 
-void DicDB::setWordList(QString tableName, int begin, int number)
+//查询表中有多少条记录
+int DicDB::getQuantity()
 {
-    QString sql = QString("select * from '%1' limit %2, %3;").arg(tableName).arg(begin).arg(number);
-    QList<QList<QString>> records = execSelect(sql);
-
-    for(int i=0; i<records.length(); i++)
-    {
-        Word* aAword = getAWord(records.at(i));
-        wordList.append(aAword);
+    QString sql = "select count(*) from table_words";
+    QList<QList<QString>> record = execSelect(sql);
+    int quantity = 0;
+    if(!record.isEmpty()) {
+        quantity = QString(record.at(0).at(0)).toInt();
     }
+    return quantity;
 }
 
-void DicDB::clearMemory()
-{
-    if(db.open()) {
-        db.close();
-    }
-    qDeleteAll(wordList.begin(), wordList.end());
-    wordList.clear();
+//void DicDB::setWordList(QString tableName, int begin, int number)
+//{
+//    QString sql = QString("select * from '%1' limit %2, %3;").arg(tableName).arg(begin).arg(number);
+//    QList<QList<QString>> records = execSelect(sql);
 
-}
+//    for(int i=0; i<records.length(); i++)
+//    {
+//        Word* aAword = getAWord(records.at(i));
+//        wordList.append(aAword);
+//    }
+//}
+
+//void DicDB::clearMemory()
+//{
+//    if(db.open()) {
+//        db.close();
+//    }
+//    qDeleteAll(wordList.begin(), wordList.end());
+//    wordList.clear();
+
+//}
 
 DicDB::~DicDB()
 {

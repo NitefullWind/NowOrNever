@@ -111,10 +111,14 @@ Page {
             //解析传来的JSON参数
             var jo = JSON.parse(info);
             if(jo.isOk === "true") {
+                User.id = jo.id;
                 User.name = jo.name;
                 User.newNum = jo.new;
                 User.planNum = jo.plan;
                 User.finishedNum = jo.finished;
+                User.learnedNum = jo.learned;
+                User.totalNum = jo.total;
+                User.learnIndex = jo.learnIndex;
                 loginSuccess(true)
             }else{
                 //登录失败时显示错误信息
@@ -124,8 +128,8 @@ Page {
     }
 
     Component.onCompleted: {
-        UserLogin.login("1@qq.com", "123456")
-        loginSuccess(true)
+        //UserLogin.login("1@qq.com", "123456")
+//        loginSuccess(true)
 
         console.log("创建登录界面");
     }

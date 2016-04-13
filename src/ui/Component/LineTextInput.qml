@@ -28,7 +28,7 @@ Rectangle {
         activeFocusOnPress: true;
         activeFocusOnTab: true;
         validator: RegExpValidator {
-            regExp: /[\d\u-\u4e00\u9fa5-\uffff!@#$%^&*()_+-=,.<>?/:;"'{}\[\]`~'"]+/
+            regExp: /[\d\z-\u4e00\u9fa5-\uffff!@#$%^&*()_+-=,.<>?/:;"'{}\[\]`~'"]+/
         }
 
         Text {

@@ -23,7 +23,8 @@ Page {
 
         AnimatedImage {
             id: borderImg_progress
-            width: 165
+            width: (parseFloat(User.learnedNum) / parseFloat(User.totalNum))*rec_progress.width;
+
             height: parent.height + 2
             z: 2
             anchors.verticalCenter: parent.verticalCenter
@@ -43,7 +44,7 @@ Page {
 
             Text {
                 id: text_learnedNum
-                text: qsTr("99999")
+                text: User.learnedNum
                 font.family: "Courier"
                 opacity: 0.5
                 font.pointSize: 12
@@ -69,7 +70,7 @@ Page {
 
         Text {
             id: text_totalNum
-            text: qsTr("99999")
+            text: User.totalNum;
             font.family: "Courier"
             opacity: 0.5
             anchors.verticalCenter: parent.verticalCenter

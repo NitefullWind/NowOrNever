@@ -6,11 +6,11 @@
 class Word : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(int index READ index WRITE setIndex)
-    Q_PROPERTY(QString spell READ spell WRITE setSpell)
-    Q_PROPERTY(QString mean READ mean WRITE setMean)
-    Q_PROPERTY(int CET6_Frequency READ CET6_Frequency WRITE setCET6_Frequency)
-    Q_PROPERTY(int CET4_Frequency READ CET4_Frequency WRITE setCET4_Frequency)
+    Q_PROPERTY(int index READ index CONSTANT)
+    Q_PROPERTY(QString spell READ spell CONSTANT)
+    Q_PROPERTY(QString mean READ mean CONSTANT)
+    Q_PROPERTY(int CET6_Frequency READ CET6_Frequency CONSTANT)
+    Q_PROPERTY(int CET4_Frequency READ CET4_Frequency CONSTANT)
 public:
     static int count;
     explicit Word(QObject *parent = 0);

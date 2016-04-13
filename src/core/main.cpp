@@ -5,6 +5,7 @@
 #include "src/core/dicDB.h"
 #include "src/core/userLogin.h"
 #include "src/core/userSignup.h"
+#include "src/core/userInfoUpdate.h"
 #include "src/core/word.h"
 #include "src/core/user.h"
 #include "download/ftpOp.h"
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<Word>("hfut.non.Word", 1, 0, "Word");
     qmlRegisterType<DicDB>("hfut.non.DicDB",1, 0, "DicDB");
     qmlRegisterType<FtpOp>("hfut.non.FtpOp", 1, 0, "FtpOp");
+    qmlRegisterType<UserInfoUpdate>("hfut.non.UserInfoUpdate", 1, 0, "UserInfoUpdate");
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("FontUnit", new FontUtil);

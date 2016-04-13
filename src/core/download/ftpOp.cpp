@@ -6,15 +6,23 @@
 #include <QDebug>
 
 FtpOp::FtpOp(QObject *parent) : QObject(parent),
-    urlString("ftp://115.159.160.167/resource/download/")
+    urlString("ftp://115.159.160.167/resource/download/") ,
+    ftp(NULL),
+    url(NULL),
+    file(NULL)
 {
 }
 
 FtpOp::~FtpOp()
 {
-    delete ftp;
-    delete file;
-    delete url;
+//    if(ftp!=NULL)
+//        ftp->deleteLater();
+//        delete ftp;
+//    if(file!=NULL)
+//        file->deleteLater();
+//        delete file;
+//    if(url!=NULL)
+//        delete url;
 }
 
 void FtpOp::downloadDicDb(QString dir)

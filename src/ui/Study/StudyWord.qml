@@ -1,10 +1,10 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.4
 import QtQuick.Controls.Styles 1.4
-import Qt.labs.settings 1.0
 import hfut.non.Word 1.0
 import hfut.non.DicDB 1.0
 import hfut.non.FtpOp 1.0
+import hfut.non.UserInfoUpdate 1.0
 import "../Component"
 
 Page {
@@ -18,7 +18,6 @@ Page {
         width: root.width;
         height: 50;
         color: "gray";
-//        opacity: 0.3
         Image {
             id: img_back
             source: "qrc:/back";
@@ -87,7 +86,7 @@ Page {
             id: mouseArea_know
             anchors.fill: parent
             onClicked: {
-                showNextWord();
+                know();
             }
         }
     }
@@ -123,12 +122,32 @@ Page {
         }
     }
 
+    function know() {
+        User.finishedNum ++;
+        if(User.finishedNum == User.planNum) {
+            text_popup.text = "恭喜你已完成今日计划！继续努力吧"
+            btn_popup.text = "继续学习";
+            popup.show();
+        }
+
+        User.learnIndex ++;
+        User.learnedNum ++;
+        if(User.learnedNum === User.totalNum) {
+            text_popup.text = "恭喜你已学完全部单词！";
+            btn_popup.text = "再来一遍";
+            popup.show();
+            User.learnIndex = "0";
+            User.learnedNum = "0";
+        }
+
+        showNextWord();
+    }
+
     function showNextWord () {
-        word = dicDB.getAWord();
+        word = dicDB.getAWord(parseInt(User.learnIndex));
         wordChanged();  //发送word改变的信号，与word绑定处自动更新
         text_word_mean.visible = false;
     }
-
 
     Component.onCompleted: {
         if(!dicDB.isDbExist()) {
@@ -136,12 +155,13 @@ Page {
         }else{
             dicDB.connect();
             showNextWord();
-//            dicDB.setWordList("view_CET6",0,10);
+            User.totalNum = dicDB.getQuantity();
         }
         console.log("创建");
     }
     Component.onDestruction: {
-        dicDB.clearMemory();
+        User.updateLearnInfo();
+//        userInfoUpdate.setLearnInfo(User.id, User.planNum, User.newNum, User.finishedNum, User.learnedNum, User.totalNum, User.learnIndex);
         console.log("销毁");
     }
 
@@ -158,7 +178,7 @@ Page {
                 //连接单词数据库，显示单词
                 dicDB.connect();
                 showNextWord();
-//                dicDB.setWordList("view_CET6",0,10);
+                User.totalNum = dicDB.getQuantity();
             }else{
                 text_popup.text = "下载失败,请重试";
                 text_hasDownload.text = "";
@@ -169,6 +189,11 @@ Page {
             text_hasDownload.text = done + "/" + total;
         }
     }
+//    UserInfoUpdate {
+//        id: userInfoUpdate;
+//    }
+
+    //是否下载框
     Rectangle {
         id: popup;
         width: root.width>>1;
@@ -195,8 +220,8 @@ Page {
 
         MyButton {
             id: btn_popup;
-            width: 100;
-            height: 50;
+            width: FontUnit.width(25,text);
+            height: FontUnit.height(25);
             anchors.bottom: parent.bottom;
             anchors.horizontalCenter: parent.horizontalCenter;
             text: "继续";
@@ -212,11 +237,14 @@ Page {
 
         function show() {
             popup.visible = true;
-            btn_popup.text = "继续";
+            mouseArea_know .enabled = false;
+            mouseArea_notKnow.enabled = false;
         }
 
         function hide() {
             popup.visible = false;
+            mouseArea_know .enabled = true;
+            mouseArea_notKnow.enabled = true;
         }
     }
 }

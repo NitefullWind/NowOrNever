@@ -16,11 +16,12 @@ public:
     Q_INVOKABLE QList<QList<QString>> execSelect(QString sql);
     Q_INVOKABLE Word* getAWord(QString sql);
     Q_INVOKABLE Word* getAWord(QList<QString> propertys);
-    Q_INVOKABLE Word* getAWord();
-    Q_INVOKABLE void setWordList(QString tableName, int begin, int number);
+    Q_INVOKABLE Word* getAWord(int index);
+//    Q_INVOKABLE void setWordList(QString tableName, int begin, int number);
     Q_INVOKABLE QString getErrorText() {return errorText;}
+    Q_INVOKABLE int getQuantity();
 
-    Q_INVOKABLE void clearMemory();
+//    Q_INVOKABLE void clearMemory();
 
     //单词的各个属性在记录链表中的位置
     enum WordProperty {
@@ -37,7 +38,7 @@ private:
     QSqlDatabase db;
     QString errorText;
     Word *word;
-    QList<Word*> wordList;
+//    QList<Word*> wordList;
 };
 
 #endif // DICDB_H

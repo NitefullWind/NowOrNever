@@ -12,7 +12,8 @@ SOURCES += src/core/main.cpp \
     src/core/user.cpp \
     src/core/download/ftpOp.cpp \
     src/core/download/qftp.cpp \
-    src/core/download/qurlinfo.cpp
+    src/core/download/qurlinfo.cpp \
+    src/core/userInfoUpdate.cpp
 
 RESOURCES += qml.qrc \
     images.qrc
@@ -44,4 +45,5 @@ HEADERS += \
     src/core/user.h \
     src/core/download/ftpOp.h \
     src/core/download/qftp.h \
-    src/core/download/qurlinfo.h
+    src/core/download/qurlinfo.h \
+    src/core/userInfoUpdate.h
