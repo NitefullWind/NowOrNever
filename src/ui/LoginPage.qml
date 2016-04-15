@@ -128,7 +128,7 @@ Page {
     }
 
     Component.onCompleted: {
-        //UserLogin.login("1@qq.com", "123456")
+//        UserLogin.login("1@qq.com", "123456")
 //        loginSuccess(true)
 
         console.log("创建登录界面");

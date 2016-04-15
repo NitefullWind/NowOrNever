@@ -26,11 +26,17 @@ Item {
         focus: true;
         Keys.enabled: true;
         Keys.onSpacePressed: {
-            (depth==1) ? Qt.quit() : pop();
+//            (depth==1) ? Qt.quit() : pop();
+            if(depth>1) {
+                pop();
+            }
         }
 
         Keys.onBackPressed: {
-            (depth==1) ? Qt.quit() : pop();
+//            (depth==1) ? Qt.quit() : pop();
+            if(depth>1) {
+                pop();
+            }
         }
     }
 

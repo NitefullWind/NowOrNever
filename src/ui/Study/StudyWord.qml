@@ -35,6 +35,51 @@ Page {
         }
     }
 
+    Row {
+        id: row_words_frequency;
+        spacing: 20;
+        anchors.horizontalCenter: root.horizontalCenter
+        anchors.bottom: text_word.top;
+        anchors.bottomMargin: 20;
+        Rectangle {
+            id: rec_num_cet4;
+            width: FontUnit.width(20,"CET4")*1.5;
+            height: FontUnit.height(20);
+            border.color: "#0aafde";
+            border.width: 1;
+            Text {
+                anchors.centerIn: parent;
+                text: "CET4"
+                font.pointSize: 20;
+                color: "#0aafde";
+            }
+        }
+
+        Text {
+            text: word.CET4_Frequency
+            font.pointSize: 20;
+        }
+
+        Rectangle {
+            id: rec_num_cet6;
+            width: rec_num_cet4.width;
+            height: rec_num_cet4.height;
+            border.color: "#0aafde";
+            border.width: 1;
+            Text {
+                anchors.centerIn: parent;
+                text: "CET6"
+                font.pointSize: 20;
+                color: "#0aafde";
+            }
+        }
+
+        Text {
+            text: word.CET6_Frequency
+            font.pointSize: 20;
+        }
+    }
+
     Text {
         id: text_word
         color: "#0aafde"

@@ -112,7 +112,7 @@ Page {
             width: 50
             height: 15
             text: qsTr("Plan")
-            anchors.rightMargin: parent.width / 5
+            anchors.rightMargin: parent.width >> 3
             font.pointSize: 20
             anchors.top: text_new.top
             anchors.topMargin: 0
@@ -136,18 +136,19 @@ Page {
             id: text_new
             width: 50
             height: 15
-            text: qsTr("New")
+//            text: qsTr("New")
             anchors.topMargin: parent.height >> 2
             font.pointSize: 20
             anchors.top: parent.top
             anchors.horizontalCenter: parent.horizontalCenter
             horizontalAlignment: Text.AlignHCenter
         }
+
         //新单词数
         Text {
             id: text_newNum
             color: "#6b2be6"
-            text: User.newNum
+//            text: User.newNum
             anchors.topMargin: parent.height >> 3
             font.pointSize: 18
             anchors.horizontalCenter: text_new.horizontalCenter
@@ -161,7 +162,7 @@ Page {
             width: 50
             height: 15
             text: qsTr("Finished")
-            anchors.leftMargin: parent.width / 5
+            anchors.leftMargin: parent.width >> 3
             font.pointSize: 20
             anchors.left: text_new.right
             anchors.top: text_new.top
