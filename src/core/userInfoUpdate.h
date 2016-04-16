@@ -8,7 +8,7 @@ class UserInfoUpdate : public Network
 public:
     explicit UserInfoUpdate(QObject *object=0);
     Q_INVOKABLE void setLearnInfo(QString uid, QString planNum, QString newNum, QString finishedNum,
-                             QString learnedNum, QString totalNum, QString learnIndex);
+                             QString learnedNum, QString totalNum, QString learnIndex, QString wordTableName);
 signals:
     void updateFinished(bool isOk);
 public slots:

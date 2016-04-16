@@ -119,6 +119,7 @@ Page {
                 User.learnedNum = jo.learned;
                 User.totalNum = jo.total;
                 User.learnIndex = jo.learnIndex;
+                User.wordTableName = jo.tableName;
                 loginSuccess(true)
             }else{
                 //登录失败时显示错误信息

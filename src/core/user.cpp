@@ -9,10 +9,11 @@ User::User(QObject *parent) : QObject(parent)
     _learnedNum = "1";
     _totalNum = "0";
     _learnIndex = "0";
+    _wordTableName = "table_words";
 }
 
 User::User(QObject *parent, QString name, QString newNum, QString planNum, QString finishedNum
-           ,QString learnNum, QString totalNum, QString learnIndex) : QObject(parent)
+           ,QString learnNum, QString totalNum, QString learnIndex, QString tableName) : QObject(parent)
 {
     this->_name = name;
     this->_newNum  = newNum;
@@ -21,10 +22,11 @@ User::User(QObject *parent, QString name, QString newNum, QString planNum, QStri
     this->_learnedNum = learnNum;
     this->_totalNum = totalNum;
     this->_learnIndex = learnIndex;
+    this->_wordTableName = tableName;
 }
 
 //更新用户学习信息
 void User::updateLearnInfo()
 {
-    UIU.setLearnInfo(id(), planNum(), newNum(), finishedNum(), learnedNum(), totalNum(), learnIndex());
+    UIU.setLearnInfo(id(), planNum(), newNum(), finishedNum(), learnedNum(), totalNum(), learnIndex(), wordTableName());
 }

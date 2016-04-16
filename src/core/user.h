@@ -16,11 +16,16 @@ class User : public QObject
     Q_PROPERTY(QString learnedNum READ learnedNum WRITE setLearnedNum NOTIFY learnedNumChanged)
     Q_PROPERTY(QString totalNum READ totalNum WRITE setTotalNum NOTIFY totalNumChanged)
     Q_PROPERTY(QString learnIndex READ learnIndex WRITE setLearnIndex NOTIFY learnIndexChanged)
+    Q_PROPERTY(QString wordTableName READ wordTableName WRITE setWordTableName NOTIFY wordTableNameChanged)
+    Q_PROPERTY(QString CET4 READ CET4 CONSTANT)
+    Q_PROPERTY(QString CET6 READ CET6 CONSTANT)
+    Q_PROPERTY(QString AllWord READ AllWord CONSTANT)
+
 
 public:
     explicit User(QObject *parent = 0);
     User(QObject *parent = 0, QString name = "", QString newNum = "0", QString planNum = "0", QString finishedNum = "0"
-            , QString learnNum = "555", QString totalNum = "1", QString learnIndex = "0");
+            , QString learnNum = "555", QString totalNum = "1", QString learnIndex = "0", QString tableName = "table_words");
 
     QString id() const {return _id;}
     void setId(const QString id) {this->_id = id; emit idChanged(id);}
@@ -46,6 +51,14 @@ public:
     QString learnIndex() const {return _learnIndex;}
     void setLearnIndex(const QString learnIndex) {this->_learnIndex = learnIndex; emit learnIndexChanged(learnIndex);}
 
+    QString wordTableName() const {return _wordTableName;}
+    void setWordTableName(const QString tableName) {this->_wordTableName = tableName; emit wordTableNameChanged(tableName);}
+
+    //数据库中表的名字
+    QString CET4() const {return "view_CET4";}
+    QString CET6() const {return "view_CET6";}
+    QString AllWord() const {return "table_words";}
+
     Q_INVOKABLE void updateLearnInfo();
 signals:
     void idChanged(const QString id);
@@ -56,6 +69,7 @@ signals:
     void learnedNumChanged(const QString learnedNum);
     void totalNumChanged(const QString totalNum);
     void learnIndexChanged(const QString learnIndex);
+    void wordTableNameChanged(const QString tableName);
 private:
     QString _id;
     QString _name;
@@ -65,6 +79,7 @@ private:
     QString _learnedNum;
     QString _totalNum;
     QString _learnIndex;
+    QString _wordTableName;
     UserInfoUpdate UIU;
 
 };

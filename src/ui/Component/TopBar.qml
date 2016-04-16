@@ -1,32 +1,33 @@
 import QtQuick 2.0
-
+import QtQuick.Controls 1.4
 Rectangle {
     id: root;
     property string pageTitle: "";
     property alias mouseArea_back: mouseArea_back;
-    property StackPage stackPage: null;
+    property StackView stackPage: null;
 
     width: 100
-    height: 50
-    color: "blue";
+    height: FontUnit.height(30);
+    color: "#70efd9";
 
     Rectangle {
         id: btn_back;
         height: root.height;
         width: height;
-        color: mouseArea_back.pressed ? "red" : "blue";
+        color: mouseArea_back.pressed ? "#2247fc" : "#70efd9";
 
         MouseArea {
             id: mouseArea_back;
             anchors.fill: parent;
             onClicked: {
-                stackPage._pop(1);
+                stackPage.pop();
             }
         }
 
         Text {
-            text: qsTr("←");
-            font.pointSize: 15;
+            text: qsTr("<");
+            anchors.centerIn: parent;
+            font.pointSize: 25;
             font.bold: true;
             color: "white";
         }
@@ -34,12 +35,12 @@ Rectangle {
 
     Text {
         id: text_title;
-        anchors.left: btn_back.right;
+        anchors.horizontalCenter: parent.horizontalCenter;
         anchors.verticalCenter: parent.verticalCenter;
-        anchors.leftMargin: 10;
+//        anchors.leftMargin: 10;
 
         text: qsTr(pageTitle);
-        font.pointSize: 15;
+        font.pointSize: 22;
         font.bold: true;
         color: "white";
     }

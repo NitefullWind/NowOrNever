@@ -6,7 +6,8 @@
 #include <QDebug>
 
 DicDB::DicDB(QObject *parent) : QObject(parent),
-    dbFileName("dic.db")
+    dbFileName("dic.db"),
+    tableName("table_words")
 {
     word = new Word();
     qDebug() << "类DicDB创建";
@@ -82,14 +83,14 @@ Word* DicDB::getAWord(QList<QString> propertys)
 //根据索引值查询一个单词
 Word* DicDB::getAWord(int index)
 {
-    Word* word = getAWord(QString("select * from view_CET4 limit %1, 1").arg(index));
+    Word* word = getAWord(QString("select * from %1 limit %2, 1").arg(tableName).arg(index));
     return word;
 }
 
 //查询表中有多少条记录
 int DicDB::getQuantity()
 {
-    QString sql = "select count(*) from table_words";
+    QString sql = "select count(*) from "+ tableName;
     QList<QList<QString>> record = execSelect(sql);
     int quantity = 0;
     if(!record.isEmpty()) {

@@ -20,6 +20,7 @@ public:
 //    Q_INVOKABLE void setWordList(QString tableName, int begin, int number);
     Q_INVOKABLE QString getErrorText() {return errorText;}
     Q_INVOKABLE int getQuantity();
+    Q_INVOKABLE void setTableName(QString tableName) {this->tableName = tableName;}
 
 //    Q_INVOKABLE void clearMemory();
 
@@ -36,6 +37,7 @@ public:
 private:
     QString dbFileName;
     QSqlDatabase db;
+    QString tableName;
     QString errorText;
     Word *word;
 //    QList<Word*> wordList;

@@ -15,5 +15,8 @@
         <file>src/ui/Component/MyButton.qml</file>
         <file>src/ui/Component/Toast.qml</file>
         <file>src/ui/js/InputCheck.js</file>
+        <file>src/ui/Mine/SettingButton.qml</file>
+        <file>src/ui/Mine/SetWordTblPage.qml</file>
+        <file>src/ui/Mine/SetPlanNumPage.qml</file>
     </qresource>
 </RCC>

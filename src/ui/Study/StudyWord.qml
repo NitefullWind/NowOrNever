@@ -14,25 +14,30 @@ Page {
 
     property Word word;
 
-    topBar: Rectangle{
-        width: root.width;
-        height: 50;
-        color: "gray";
-        Image {
-            id: img_back
-            source: "qrc:/back";
-            height: parent.height;
-            width: height;
+//    topBar: Rectangle{
+//        width: root.width;
+//        height: 50;
+//        color: "gray";
+//        Image {
+//            id: img_back
+//            source: "qrc:/back";
+//            height: parent.height;
+//            width: height;
 
-            MouseArea {
-                id: btn_back;
-                anchors.fill: parent;
-                onClicked: {
-                    //点击时退出当前页
-                    root.popPage();
-                }
-            }
-        }
+//            MouseArea {
+//                id: btn_back;
+//                anchors.fill: parent;
+//                onClicked: {
+//                    //点击时退出当前页
+//                    root.popPage();
+//                }
+//            }
+//        }
+//    }
+
+    topBar: TopBar {
+        pageTitle: "Learn Word"
+        stackPage: root.stackView;
     }
 
     Row {
@@ -200,6 +205,7 @@ Page {
         }else{
             dicDB.connect();
             showNextWord();
+            dicDB.setTableName(User.wordTableName);
             User.totalNum = dicDB.getQuantity();
         }
         console.log("创建");
@@ -213,6 +219,7 @@ Page {
     DicDB {
         id: dicDB;
     }
+
     FtpOp {
         id: ftpOp;
         onFtpDone: {
@@ -223,6 +230,7 @@ Page {
                 //连接单词数据库，显示单词
                 dicDB.connect();
                 showNextWord();
+                dicDB.setTableName(User.wordTableName);
                 User.totalNum = dicDB.getQuantity();
             }else{
                 text_popup.text = "下载失败,请重试";
