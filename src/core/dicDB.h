@@ -22,6 +22,10 @@ public:
     Q_INVOKABLE int getQuantity();
     Q_INVOKABLE void setTableName(QString tableName) {this->tableName = tableName;}
 
+    Q_INVOKABLE QStringList getWordListModel();
+    Q_INVOKABLE QStringList getWordListModel(QString spell);
+    Q_INVOKABLE Word *getWordBySpell(QString spell);
+
 //    Q_INVOKABLE void clearMemory();
 
     //单词的各个属性在记录链表中的位置

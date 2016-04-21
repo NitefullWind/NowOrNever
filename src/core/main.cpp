@@ -19,13 +19,12 @@ int main(int argc, char *argv[])
     app.setOrganizationDomain("non.hfut.com");
     app.setApplicationName("Now Or Never");
     qmlRegisterType<Word>("hfut.non.Word", 1, 0, "Word");
-    qmlRegisterType<DicDB>("hfut.non.DicDB",1, 0, "DicDB");
+//    qmlRegisterType<DicDB>("hfut.non.DicDB",1, 0, "DicDB");
     qmlRegisterType<FtpOp>("hfut.non.FtpOp", 1, 0, "FtpOp");
     qmlRegisterType<UserInfoUpdate>("hfut.non.UserInfoUpdate", 1, 0, "UserInfoUpdate");
-
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("FontUnit", new FontUtil);
-//    engine.rootContext()->setContextProperty("DicDB", new DicDB);
+    engine.rootContext()->setContextProperty("DicDB", new DicDB);
     engine.rootContext()->setContextProperty("UserLogin", new UserLogin);
     engine.rootContext()->setContextProperty("UserSignup", new UserSignup);
     engine.rootContext()->setContextProperty("User", new User(0, "0","0","0"));

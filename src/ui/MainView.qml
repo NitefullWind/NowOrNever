@@ -1,9 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.4
-import QtQml.Models 2.2
-import "./Study"
-import "./Find"
-import "./Mine"
+import hfut.non.FtpOp 1.0
 import "./Component"
 
 Item {
@@ -16,8 +13,7 @@ Item {
                 stackView: stack;
                 onLoginSuccess: {
                     if(isOk===true) {
-                        //将登录页替换为主页
-                        stack.push({item:mainPage, replace:true});
+                        init();
                     }
                 }
         }
@@ -40,67 +36,86 @@ Item {
         }
     }
 
-    Page {
-        id: mainPage;
+    function init() {
+        if(!DicDB.isDbExist()) {
+            popup.show();
+        }else{
+            DicDB.connect();
+            DicDB.setTableName(User.wordTableName);
+            User.totalNum = DicDB.getQuantity();
+            //将登录页替换为主页
+            stack.push({item:"qrc:/src/ui/MainPage.qml", replace:true});
+        }
+    }
 
-        stackView: stack;
+    FtpOp {
+        id: ftpOp;
+        onFtpDone: {
+            if(!error) {
+                text_popup.text = "下载成功";
+                text_hasDownload.text = "";
 
-        ListView {
-            id: listView;
-            width: parent.width
-            anchors.top: mainPage.top;
-            anchors.bottom: navBar.top;
+                init();
 
-            clip: true
-            preferredHighlightBegin: 0
-            preferredHighlightEnd: 0
-            highlightMoveDuration: 250
-            highlightRangeMode: ListView.StrictlyEnforceRange
-            snapMode: ListView.SnapOneItem
-            orientation: ListView.Horizontal
-            maximumFlickVelocity: 3000
-            boundsBehavior: ListView.StopAtBounds
-
-            onCurrentIndexChanged: {
-                navBar.activePageIndex = currentIndex;
+            }else{
+                text_popup.text = "下载失败,请重试";
+                text_hasDownload.text = "";
             }
+            btn_popup.text = "关闭";
+        }
+        onProgressChanged: {
+            text_hasDownload.text = done + "/" + total;
+        }
+    }
 
-            model: itemsModel;
+    //是否下载框
+    Rectangle {
+        id: popup;
+        width: root.width>>1;
+        height: width;
+        anchors.centerIn: parent;
+        radius: 5;
+        visible: false;
+        color: "lightblue"
+
+        Text {
+            id: text_popup;
+            width: parent.width-10;
+            text: "需要从服务器下载单词(约300KB),请保持网络畅通";
+            wrapMode: Text.WordWrap
+            font.pointSize: 23;
+            anchors.centerIn: parent;
         }
 
-        ObjectModel {
-            id: itemsModel
-            StudyPage {
-                id: studyPage;
-                width: listView.width;
-                height: listView.height;
-                stackView: stack;
-            }
-
-            //发现页面
-            FindPage {
-                id: findPage;
-                width: listView.width;
-                height: listView.height;
-                stackView: stack;
-            }
-
-            //我的设置页面
-            MinePage {
-                id: minePage;
-                width: listView.width;
-                height: listView.height;
-                stackView: stack;
-            }
+        Text {
+            id: text_hasDownload;
+            anchors.top: text_popup.bottom;
+            anchors.topMargin: 10;
         }
 
-        NavBar {
-            id: navBar;
-            width: parent.width;
+        MyButton {
+            id: btn_popup;
+            width: FontUnit.width(25,text);
+            height: FontUnit.height(25);
             anchors.bottom: parent.bottom;
-            onActivePageIndexChanged: {
-                listView.currentIndex = activePageIndex;
+            anchors.horizontalCenter: parent.horizontalCenter;
+            text: "继续";
+            onClicked: {
+                if(text == "继续") {
+                    text_popup.text = "正在下载单词..."
+                    ftpOp.downloadDicDb();
+                }else{
+                    popup.hide();
+                }
             }
+        }
+
+        function show() {
+            popup.visible = true;
+        }
+
+        function hide() {
+            popup.visible = false;
         }
     }
 }

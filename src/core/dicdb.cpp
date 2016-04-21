@@ -99,6 +99,44 @@ int DicDB::getQuantity()
     return quantity;
 }
 
+QStringList DicDB::getWordListModel()
+{
+    if(!db.isOpen()) {
+        return QStringList("无");
+    }
+    QString sql = QString("select word from table_strange");
+    QList<QList<QString>> records = execSelect(sql);
+    QStringList data;
+    if(!records.isEmpty()) {
+        for(QList<QString> aRecord : records) {
+            data.append(aRecord.at(0));
+        }
+    }
+    return data;
+}
+
+QStringList DicDB::getWordListModel(QString spell)
+{
+    if(!db.isOpen()) {
+        return QStringList("无");
+    }
+    QString sql = QString("select related_word from table_strange where word='%1'").arg(spell);
+    QList<QList<QString>> records = execSelect(sql);
+    QStringList data;
+    if(!records.isEmpty()) {
+        QString temp = records.at(0).at(0);
+        data = temp.split(",");
+    }
+    return data;
+}
+
+Word* DicDB::getWordBySpell(QString spell)
+{
+    QString sql = QString("select * from table_words where word='%1'").arg(spell);
+    Word *word = getAWord(sql);
+    return word;
+}
+
 //void DicDB::setWordList(QString tableName, int begin, int number)
 //{
 //    QString sql = QString("select * from '%1' limit %2, %3;").arg(tableName).arg(begin).arg(number);

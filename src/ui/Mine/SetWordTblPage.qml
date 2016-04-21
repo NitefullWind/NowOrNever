@@ -52,7 +52,7 @@ Page {
                 }
             }
             RadioButton {
-                text: "All Words"
+                text: "All Words";
                 checked: User.wordTableName == User.AllWord;
                 exclusiveGroup: group;
                 style: radioStyle;
@@ -90,6 +90,12 @@ Page {
                 font.pointSize: 22;
             }
         }
+    }
+
+    //更新信息
+    Component.onDestruction: {
+        DicDB.setTableName(User.wordTableName);
+        User.totalNum = DicDB.getQuantity();
     }
 }
 
