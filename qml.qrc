@@ -22,5 +22,6 @@
         <file>src/ui/Component/ShowWordRec.qml</file>
         <file>src/ui/MainPage.qml</file>
         <file>src/ui/Find/WordListPage.qml</file>
+        <file>src/ui/Mine/BBSPage.qml</file>
     </qresource>
 </RCC>

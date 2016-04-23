@@ -53,6 +53,16 @@ Page {
                 root.pushPage("qrc:/src/ui/Mine/SetPlanNumPage.qml");
             }
         }
+        //计划单词数
+        SettingButton {
+            id: button_bbs;
+            width: root.width;
+            centerText: "论坛"
+
+            onClicked: {
+                root.pushPage("qrc:/src/ui/Mine/BBSPage.qml");
+            }
+        }
     }
 
     //退出按钮

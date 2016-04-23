@@ -9,11 +9,14 @@
 #include "src/core/word.h"
 #include "src/core/user.h"
 #include "download/ftpOp.h"
+#include <QtWebView/QtWebView>
 #include <QDebug>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+
+    QtWebView::initialize();
 
     app.setOrganizationName("hfut");
     app.setOrganizationDomain("non.hfut.com");

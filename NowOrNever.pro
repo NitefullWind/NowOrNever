@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick sql network
+QT += qml quick sql network webview
 CONFIG += c++11
 SOURCES += src/core/main.cpp \
     src/ui/fontUtil.cpp \
