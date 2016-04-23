@@ -7,6 +7,32 @@ Page {
     width: 400
     height: 400
 
+    Text {
+        id: ds_content;
+        anchors.top: parent.top;
+        anchors.topMargin: 50;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        horizontalAlignment: Text.AlignHCenter
+        width: rec_todayInfo.width;
+        wrapMode: Text.WordWrap;
+        text: DailySentence.content;
+        font.pointSize: 18;
+        color: "blue";
+    }
+
+    Text {
+        id: ds_note;
+        anchors.top: ds_content.bottom;
+        anchors.topMargin: 30;
+        anchors.horizontalCenter: parent.horizontalCenter;
+        horizontalAlignment: Text.AlignHCenter
+        width: ds_content.width;
+        text: DailySentence.note;
+        wrapMode: Text.WordWrap;
+        font.pointSize: 13;
+        font.italic: true;
+    }
+
     //学习进度条
     Rectangle {
         id: rec_progress

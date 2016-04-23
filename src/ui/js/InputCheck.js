@@ -69,8 +69,9 @@ function checkName(input)
         errorMessage = "请输入用户名";
         return false;
     }
-    if(!isLengthThanSix(input)) {
-        errorMessage = "用户名必须大于6位"
+    if(input.length<2)
+    {
+        errorMessage = "用户名需要两位字符"
         return false;
     }
     return true;
